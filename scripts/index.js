@@ -86,14 +86,20 @@ const displayController = (() => {
 
   const updateWinner = (currentPlayer, win) => {
     const winnerElement = document.createElement("h2");
-    winnerElement.textContent = `Winner of this round is: ${currentPlayer.playerName}`;
+
+    if (win) {
+      winnerElement.textContent = `Winner of this round is: ${currentPlayer.playerName}`;
+      console.log(`player-${currentPlayer.playerSymbol}-wins`);
+      let winnerNumber = document.querySelector(
+        `.player-${currentPlayer.playerSymbol}-wins`
+      );
+      let currentWins = Number(winnerNumber.textContent);
+      winnerNumber.textContent = currentWins + 1;
+    } else {
+      winnerElement.textContent = "It's a tie :( Try again!";
+    }
+
     displayWinner.append(winnerElement);
-    console.log(`player-${currentPlayer.playerSymbol}-wins`);
-    let winnerNumber = document.querySelector(
-      `.player-${currentPlayer.playerSymbol}-wins`
-    );
-    let currentWins = Number(winnerNumber.textContent);
-    winnerNumber.textContent = currentWins + 1;
   };
 
   form.addEventListener("submit", (event) => {
@@ -156,7 +162,7 @@ const game = (() => {
   const checkWinner = () => {
     if (!gameBoard.board.includes("")) {
       gameOn = false;
-      console.log("draw");
+      displayController.updateWinner(currentPlayer, false);
     }
 
     winningOptions.forEach((option) => {
@@ -167,8 +173,6 @@ const game = (() => {
       ) {
         gameOn = false;
         displayController.updateWinner(currentPlayer, true);
-        // console.log(currentPlayer);
-        // alert(`Winner is ${currentPlayer.playerName}`);
       }
     });
   };
