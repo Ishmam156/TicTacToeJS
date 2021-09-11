@@ -1,5 +1,4 @@
 const gameBoard = (() => {
-  // let board = ["X", "O", "X", "O", "X", "O", "X", "O", "X"];
   let board = new Array(9).fill("");
   const updateBoard = (index, player) => {
     board[index] = player.playerSymbol;
@@ -28,10 +27,16 @@ const player = (name, symbol) => {
 };
 
 const displayController = (() => {
+  const restartButton = document.querySelector(".game-restart");
+  const form = document.querySelector("form");
+  const grid = document.querySelector(".game-grid");
+  const gameStatus = document.querySelector(".game-status");
+  const displayWinner = document.querySelector(".game-winner");
+
   const render = () => {
-    const grid = document.querySelector(".game-grid");
     grid.style.border = "1px solid gray";
     grid.innerHTML = "";
+    displayWinner.innerHTML = "";
 
     gameBoard.board.forEach((item, index) => {
       const singlePlay = document.createElement("div");
@@ -48,7 +53,7 @@ const displayController = (() => {
       grid.appendChild(singlePlay);
     });
 
-    document.querySelector(".game-restart").addEventListener("click", () => {
+    restartButton.addEventListener("click", () => {
       game.restartGame();
       render();
     });
@@ -60,7 +65,38 @@ const displayController = (() => {
     });
   };
 
-  document.querySelector("form").addEventListener("submit", (event) => {
+  const addStatusToBoard = () => {
+    const players = [game.player1status(), game.player2status()];
+
+    players.forEach((player, index) => {
+      const playerStatus = document.createElement("div");
+      const playerName = document.createElement("p");
+      playerName.textContent = `Player ${index + 1}: ${player.name} `;
+      playerStatus.appendChild(playerName);
+      const wins = document.createElement("div");
+      wins.textContent = "Wins: ";
+      const winNumber = document.createElement("span");
+      winNumber.textContent = "0";
+      winNumber.classList.add(`player-${player.symbol}-wins`);
+      wins.appendChild(winNumber);
+      playerStatus.appendChild(wins);
+      gameStatus.append(playerStatus);
+    });
+  };
+
+  const updateWinner = (currentPlayer, win) => {
+    const winnerElement = document.createElement("h2");
+    winnerElement.textContent = `Winner of this round is: ${currentPlayer.playerName}`;
+    displayWinner.append(winnerElement);
+    console.log(`player-${currentPlayer.playerSymbol}-wins`);
+    let winnerNumber = document.querySelector(
+      `.player-${currentPlayer.playerSymbol}-wins`
+    );
+    let currentWins = Number(winnerNumber.textContent);
+    winnerNumber.textContent = currentWins + 1;
+  };
+
+  form.addEventListener("submit", (event) => {
     event.preventDefault();
 
     game.startGame(
@@ -68,11 +104,15 @@ const displayController = (() => {
       event.target.player2name.value
     );
     render();
+    addStatusToBoard();
+    form.style.display = "none";
+    restartButton.style.display = "block";
   });
 
   return {
     render,
     updateGameBoard,
+    updateWinner,
   };
 })();
 
@@ -126,17 +166,31 @@ const game = (() => {
         gameBoard.board[option[0]] !== ""
       ) {
         gameOn = false;
-        console.log(currentPlayer);
-        alert(`Winner is ${currentPlayer.playerName}`);
+        displayController.updateWinner(currentPlayer, true);
+        // console.log(currentPlayer);
+        // alert(`Winner is ${currentPlayer.playerName}`);
       }
     });
   };
 
+  const player1status = () => {
+    return {
+      name: player1.playerName,
+      symbol: player1.playerSymbol,
+    };
+  };
+
+  const player2status = () => {
+    return {
+      name: player2.playerName,
+      symbol: player2.playerSymbol,
+    };
+  };
+
   const restartGame = () => {
     gameOn = true;
-    currentPlayer = null;
+    currentPlayer = player1;
     gameBoard.resetBoard();
-    startGame();
   };
 
   return {
@@ -146,5 +200,7 @@ const game = (() => {
     isGameOn,
     restartGame,
     startGame,
+    player1status,
+    player2status,
   };
 })();

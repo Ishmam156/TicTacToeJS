@@ -12,17 +12,19 @@
 <body>
     <div class="container">
         <h1>Welcome to Tic-Tac-Toe!</h1>
+        <div class='game-winner'></div>
         <form>
             <label for="player1name">Name of Player 1:</label>
-            <input id='player1name' type="text" name='player1name' placeholder="Enter name here.." value="ab">
+            <input id='player1name' type="text" name='player1name' placeholder="Enter name here.." value="Aazu">
             <br />
             <label for="player2name">Name of Player 2:</label>
-            <input id='player2name' type="text" name='player2name' placeholder="Enter name here.." value="cd">
+            <input id='player2name' type="text" name='player2name' placeholder="Enter name here.." value="Pazu">
             <br />
             <input type="submit" value="Start Game!">
         </form>
         <div class="game-grid">
         </div>
+        <div class='game-status'></div>
         <button class="game-restart">Restart Game!</button>
     </div>
     <script src="./scripts/index.js"></script>
