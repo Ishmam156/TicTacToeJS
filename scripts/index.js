@@ -3,8 +3,10 @@ const gameBoard = (() => {
   const updateBoard = (index, player) => {
     board[index] = player.playerSymbol;
     displayController.updateGameBoard();
-    game.checkWinner();
-    game.changePlayer();
+    const winner = game.checkWinner();
+    if (!winner) {
+      game.changePlayer();
+    }
   };
   const resetBoard = () => {
     board = board.fill("");
@@ -66,7 +68,7 @@ const displayController = (() => {
   };
 
   const addStatusToBoard = () => {
-    const players = [game.player1status(), game.player2status()];
+    const players = game.playerStatus();
 
     players.forEach((player, index) => {
       const playerStatus = document.createElement("div");
@@ -163,6 +165,7 @@ const game = (() => {
     if (!gameBoard.board.includes("")) {
       gameOn = false;
       displayController.updateWinner(currentPlayer, false);
+      return true;
     }
 
     winningOptions.forEach((option) => {
@@ -173,23 +176,23 @@ const game = (() => {
       ) {
         gameOn = false;
         displayController.updateWinner(currentPlayer, true);
+        return true;
       }
     });
+
+    return false;
   };
 
-  const player1status = () => {
-    return {
+  const playerStatus = () => [
+    {
       name: player1.playerName,
       symbol: player1.playerSymbol,
-    };
-  };
-
-  const player2status = () => {
-    return {
+    },
+    {
       name: player2.playerName,
       symbol: player2.playerSymbol,
-    };
-  };
+    },
+  ];
 
   const restartGame = () => {
     gameOn = true;
@@ -204,7 +207,6 @@ const game = (() => {
     isGameOn,
     restartGame,
     startGame,
-    player1status,
-    player2status,
+    playerStatus,
   };
 })();
