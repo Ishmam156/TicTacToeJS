@@ -6,32 +6,75 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
 .container {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 10px;
+  gap: 5px;
   align-items: center;
   min-width: 100vw;
   min-height: 100vh;
-  padding: 50px 100px;
+  padding: 20px 50px;
+  background-color: #d8e3e7;
+}
+
+input,
+button {
+  height: 40px;
+  width: 200px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  background-color: #132c33;
+  color: #d8e3e7;
+  padding-left: 15px;
+  font-size: large;
+  font-weight: bold;
+}
+
+input[type="submit"],
+button {
+  cursor: pointer;
+}
+
+input[type="submit"]:hover,
+button:hover {
+  cursor: pointer;
+  background-color: #255b69;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+label {
+  color: #132c33;
+  font-size: large;
+  font-style: italic;
 }
 
 .game-grid {
   display: grid;
   grid-template-rows: repeat(3, 1fr);
   grid-template-columns: repeat(3, 1fr);
+  background-color: #126e82;
+  margin-bottom: 10px;
 }
 
 .game-grid div {
-  border: 1px solid lightgray;
-  height: 100px;
-  width: 100px;
+  border: 1px solid #132c33;
+  height: 125px;
+  width: 125px;
   font-size: x-large;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  color: #d8e3e7;
+  font-size: 72px;
 }
 
 form {
@@ -47,7 +90,12 @@ form {
 
 .game-status {
   display: flex;
-  gap: 25px;
+  gap: 30px;
+  margin: 5px 0px;
+  padding: 5px 50px;
+  border-radius: 10px;
+  color: #d8e3e7;
+  font-weight: 700;
 }
 
 .game-status > div {
@@ -55,4 +103,21 @@ form {
   flex-direction: column;
   align-items: center;
   gap: 5px;
+  padding-bottom: 10px;
+}
+
+.game-status span {
+  font-size: xx-large;
+}
+
+h2 {
+  margin: 5px 0px;
+  padding: 0;
+  color: #126e82;
+}
+
+h1 {
+  margin: 10px 0px;
+  padding: 0;
+  color: #132c33;
 }

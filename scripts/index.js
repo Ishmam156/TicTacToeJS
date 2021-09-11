@@ -36,7 +36,7 @@ const displayController = (() => {
   const displayWinner = document.querySelector(".game-winner");
 
   const render = () => {
-    grid.style.border = "1px solid gray";
+    grid.style.border = "1px solid #132C33";
     grid.innerHTML = "";
     displayWinner.innerHTML = "";
 
@@ -73,16 +73,16 @@ const displayController = (() => {
     players.forEach((player, index) => {
       const playerStatus = document.createElement("div");
       const playerName = document.createElement("p");
-      playerName.textContent = `Player ${index + 1}: ${player.name} `;
+      playerName.textContent = `${player.name} `;
       playerStatus.appendChild(playerName);
       const wins = document.createElement("div");
-      wins.textContent = "Wins: ";
       const winNumber = document.createElement("span");
       winNumber.textContent = "0";
       winNumber.classList.add(`player-${player.symbol}-wins`);
       wins.appendChild(winNumber);
       playerStatus.appendChild(wins);
       gameStatus.append(playerStatus);
+      gameStatus.style.backgroundColor = "#132C33";
     });
   };
 
@@ -90,8 +90,7 @@ const displayController = (() => {
     const winnerElement = document.createElement("h2");
 
     if (win) {
-      winnerElement.textContent = `Winner of this round is: ${currentPlayer.playerName}`;
-      console.log(`player-${currentPlayer.playerSymbol}-wins`);
+      winnerElement.textContent = `Winner of this round is: ${currentPlayer.playerName}!`;
       let winnerNumber = document.querySelector(
         `.player-${currentPlayer.playerSymbol}-wins`
       );
