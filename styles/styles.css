@@ -10,6 +10,7 @@ body {
   font-family: Helvetica, sans-serif;
   margin: 0;
   padding: 0;
+  text-align: center;
 }
 
 .container {
@@ -36,6 +37,10 @@ button {
   padding-left: 15px;
   font-size: large;
   font-weight: bold;
+}
+
+button {
+  background-color: #126e82;
 }
 
 input[type="submit"],

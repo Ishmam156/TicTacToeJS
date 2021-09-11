@@ -172,12 +172,6 @@ const game = (() => {
   };
 
   const checkWinner = () => {
-    if (!gameBoard.board.includes("")) {
-      gameOn = false;
-      displayController.updateWinner(currentPlayer, false);
-      return true;
-    }
-
     winningOptions.forEach((option) => {
       if (
         gameBoard.board[option[0]] === gameBoard.board[option[1]] &&
@@ -189,6 +183,12 @@ const game = (() => {
         return true;
       }
     });
+
+    if (!gameBoard.board.includes("")) {
+      gameOn = false;
+      displayController.updateWinner(currentPlayer, false);
+      return true;
+    }
 
     return false;
   };
