@@ -30,6 +30,7 @@ const player = (name, symbol) => {
 const displayController = (() => {
   const render = () => {
     const grid = document.querySelector(".game-grid");
+    grid.style.border = "1px solid gray";
     grid.innerHTML = "";
 
     gameBoard.board.forEach((item, index) => {
@@ -59,7 +60,15 @@ const displayController = (() => {
     });
   };
 
-  render();
+  document.querySelector("form").addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    game.startGame(
+      event.target.player1name.value,
+      event.target.player2name.value
+    );
+    render();
+  });
 
   return {
     render,
@@ -72,8 +81,6 @@ const game = (() => {
   let player2;
   let currentPlayer;
   let gameOn = true;
-  // player1 = player(prompt("What is your name, Player 1?"), "X");
-  // player2 = player(prompt("What is your name, Player 2?"), "O");
 
   const winningOptions = [
     [0, 1, 2],
@@ -86,14 +93,12 @@ const game = (() => {
     [2, 4, 6],
   ];
 
-  const startGame = () => {
-    player1 = player("Player 1", "X");
-    player2 = player("Player 2", "O");
+  const startGame = (player1name, player2name) => {
+    player1 = player(player1name, "X");
+    player2 = player(player2name, "O");
 
     currentPlayer = player1;
   };
-
-  startGame();
 
   const changePlayer = () => {
     currentPlayer =
@@ -140,5 +145,6 @@ const game = (() => {
     checkWinner,
     isGameOn,
     restartGame,
+    startGame,
   };
 })();
