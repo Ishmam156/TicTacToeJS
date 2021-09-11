@@ -61,6 +61,27 @@ const displayController = (() => {
     });
   };
 
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const player1name = event.target.player1name.value;
+    const player2name = event.target.player2name.value;
+
+    if (!player1name || !player2name) {
+      alert("Must provide a name to start!");
+      return;
+    }
+
+    game.startGame(
+      event.target.player1name.value,
+      event.target.player2name.value
+    );
+    render();
+    addStatusToBoard();
+    form.style.display = "none";
+    restartButton.style.display = "block";
+  });
+
   const updateGameBoard = () => {
     document.querySelectorAll(".game-play").forEach((item) => {
       item.textContent = gameBoard.board[item.dataset.index];
@@ -70,15 +91,15 @@ const displayController = (() => {
   const addStatusToBoard = () => {
     const players = game.playerStatus();
 
-    players.forEach((player, index) => {
+    players.forEach((player) => {
       const playerStatus = document.createElement("div");
       const playerName = document.createElement("p");
-      playerName.textContent = `${player.name} `;
+      playerName.textContent = `${player.playerName} `;
       playerStatus.appendChild(playerName);
       const wins = document.createElement("div");
       const winNumber = document.createElement("span");
       winNumber.textContent = "0";
-      winNumber.classList.add(`player-${player.symbol}-wins`);
+      winNumber.classList.add(`player-${player.playerSymbol}-wins`);
       wins.appendChild(winNumber);
       playerStatus.appendChild(wins);
       gameStatus.append(playerStatus);
@@ -105,27 +126,6 @@ const displayController = (() => {
       displayWinner.innerHTML = "";
     }, 2500);
   };
-
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    const player1name = event.target.player1name.value;
-    const player2name = event.target.player2name.value;
-
-    if (!player1name || !player2name) {
-      alert("Must provide a name to start!");
-      return;
-    }
-
-    game.startGame(
-      event.target.player1name.value,
-      event.target.player2name.value
-    );
-    render();
-    addStatusToBoard();
-    form.style.display = "none";
-    restartButton.style.display = "block";
-  });
 
   return {
     render,
@@ -193,16 +193,7 @@ const game = (() => {
     return false;
   };
 
-  const playerStatus = () => [
-    {
-      name: player1.playerName,
-      symbol: player1.playerSymbol,
-    },
-    {
-      name: player2.playerName,
-      symbol: player2.playerSymbol,
-    },
-  ];
+  const playerStatus = () => [player1, player2];
 
   const restartGame = () => {
     gameOn = true;
