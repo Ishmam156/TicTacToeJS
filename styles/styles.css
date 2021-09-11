@@ -66,8 +66,8 @@ label {
 
 .game-grid div {
   border: 1px solid #132c33;
-  height: 125px;
-  width: 125px;
+  height: 110px;
+  width: 110px;
   font-size: x-large;
   display: flex;
   justify-content: center;

@@ -101,10 +101,21 @@ const displayController = (() => {
     }
 
     displayWinner.append(winnerElement);
+    setTimeout(() => {
+      displayWinner.innerHTML = "";
+    }, 2500);
   };
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
+
+    const player1name = event.target.player1name.value;
+    const player2name = event.target.player2name.value;
+
+    if (!player1name || !player2name) {
+      alert("Must provide a name to start!");
+      return;
+    }
 
     game.startGame(
       event.target.player1name.value,
