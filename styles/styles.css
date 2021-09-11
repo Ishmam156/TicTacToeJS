@@ -1,0 +1,36 @@
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 25px;
+  align-items: center;
+  min-width: 100vw;
+  min-height: 100vh;
+  padding: 50px 100px;
+}
+
+.game-grid {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  border: 2px solid gray;
+}
+
+.game-grid div {
+  border: 1px solid lightgray;
+  height: 100px;
+  width: 100px;
+  font-size: x-large;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
