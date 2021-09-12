@@ -54,12 +54,12 @@ const displayController = (() => {
       });
       grid.appendChild(singlePlay);
     });
-
-    restartButton.addEventListener("click", () => {
-      game.restartGame();
-      render();
-    });
   };
+
+  restartButton.addEventListener("click", () => {
+    game.restartGame();
+    render();
+  });
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
