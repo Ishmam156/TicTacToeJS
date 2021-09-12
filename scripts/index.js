@@ -180,9 +180,12 @@ const game = (() => {
       ) {
         gameOn = false;
         displayController.updateWinner(currentPlayer, true);
-        return true;
       }
     });
+
+    if (!gameOn) {
+      return true;
+    }
 
     if (!gameBoard.board.includes("")) {
       gameOn = false;
